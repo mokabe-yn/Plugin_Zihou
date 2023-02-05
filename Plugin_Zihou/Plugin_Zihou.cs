@@ -144,7 +144,7 @@ namespace Plugin_Zihou {
         private string ReadAloudText(string path) {
             string ret;
             try {
-                StreamReader sr = new StreamReader(path, Encoding.GetEncoding("Shift_JIS"));
+                StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
                 try {
                     ret = sr.ReadToEnd();
                 } catch (Exception) {
