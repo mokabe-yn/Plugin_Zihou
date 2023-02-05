@@ -1,4 +1,4 @@
-//ƒvƒ‰ƒOƒCƒ“‚Ìƒtƒ@ƒCƒ‹–¼‚ÍAuPlugin_*.dllv‚Æ‚¢‚¤Œ`®‚É‚µ‚Ä‰º‚³‚¢B
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®ãƒ•ã‚¡ã‚¤ãƒ«åã¯ã€ã€ŒPlugin_*.dllã€ã¨ã„ã†å½¢å¼ã«ã—ã¦ä¸‹ã•ã„ã€‚
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,60 +15,60 @@ using FNF.BouyomiChanApp;
 
 namespace Plugin_Zihou {
     public class Plugin_Zihou : IPlugin {
-        #region ¡ƒtƒB[ƒ‹ƒh
+        #region â– ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
 
-        private Settings_Zihou         _Settings;                                                       //İ’è
+        private Settings_Zihou         _Settings;                                                       //è¨­å®š
         private SettingFormData_Zihou  _SettingFormData;
-        private string                 _SettingFile = Base.CallAsmPath + Base.CallAsmName + ".setting"; //İ’èƒtƒ@ƒCƒ‹‚Ì•Û‘¶êŠ
-        private System.Threading.Timer _Timer;                                                          //ƒ^ƒCƒ}
-        private DateTime               _NextAlartTime;                                                  //Ÿ‰ñ‚Ì•ñ
+        private string                 _SettingFile = Base.CallAsmPath + Base.CallAsmName + ".setting"; //è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®ä¿å­˜å ´æ‰€
+        private System.Threading.Timer _Timer;                                                          //ã‚¿ã‚¤ãƒ
+        private DateTime               _NextAlartTime;                                                  //æ¬¡å›ã®æ™‚å ±æ™‚åˆ»
         private ToolStripButton        _Button;
         private ToolStripSeparator     _Separator;
 
         #endregion
 
 
-        #region ¡IPluginƒƒ“ƒo‚ÌÀ‘•
+        #region â– IPluginãƒ¡ãƒ³ãƒã®å®Ÿè£…
 
-        public string           Name            { get { return "“Ç‚İã‚°"; } }
+        public string           Name            { get { return "æ™‚åˆ»èª­ã¿ä¸Šã’"; } }
 
-        public string           Version         { get { return "2009/07/22”Å"; } }
+        public string           Version         { get { return "2009/07/22ç‰ˆ"; } }
 
-        public string           Caption         { get { return "‚ğ“Ç‚İã‚°‚Ü‚·B\nˆêŠÔ–ˆ‚Ì•ñ‚ÆAƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½Û‚ÉŒ»İ‚ğ“Ç‚İã‚°‚Ü‚·B"; } } 
+        public string           Caption         { get { return "æ™‚åˆ»ã‚’èª­ã¿ä¸Šã’ã¾ã™ã€‚\nä¸€æ™‚é–“æ¯ã®æ™‚å ±ã¨ã€ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸéš›ã«ç¾åœ¨æ™‚åˆ»ã‚’èª­ã¿ä¸Šã’ã¾ã™ã€‚"; } } 
 
-        public ISettingFormData SettingFormData { get { return _SettingFormData; } } //ƒvƒ‰ƒOƒCƒ“‚Ìİ’è‰æ–Êî•ñiİ’è‰æ–Ê‚ª•K—v‚È‚¯‚ê‚Înull‚ğ•Ô‚µ‚Ä‚­‚¾‚³‚¢j
+        public ISettingFormData SettingFormData { get { return _SettingFormData; } } //ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è¨­å®šç”»é¢æƒ…å ±ï¼ˆè¨­å®šç”»é¢ãŒå¿…è¦ãªã‘ã‚Œã°nullã‚’è¿”ã—ã¦ãã ã•ã„ï¼‰
 
-        //ƒvƒ‰ƒOƒCƒ“ŠJnˆ—
+        //ãƒ—ãƒ©ã‚°ã‚¤ãƒ³é–‹å§‹æ™‚å‡¦ç†
         public void Begin() {
-            //İ’èƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+            //è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
             _Settings = new Settings_Zihou(this);
             _Settings.Load(_SettingFile);
             _SettingFormData = new SettingFormData_Zihou(_Settings);
 
-            //ƒ^ƒCƒ}“o˜^(–³‘Ê‚É‚P•bŠÔŠuOOG)
+            //ã‚¿ã‚¤ãƒç™»éŒ²(ç„¡é§„ã«ï¼‘ç§’é–“éš”ï¼¾ï¼¾ï¼›)
             _Timer = new System.Threading.Timer(Timer_Event, null, 0, 1000);
 
-            //‰æ–Ê‚Éƒ{ƒ^ƒ“‚ÆƒZƒpƒŒ[ƒ^‚ğ’Ç‰Á
+            //ç”»é¢ã«ãƒœã‚¿ãƒ³ã¨ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã‚’è¿½åŠ 
             _Separator = new ToolStripSeparator();
             Pub.ToolStrip.Items.Add(_Separator);
             _Button = new ToolStripButton(Properties.Resources.ImgZihou);
-            _Button.ToolTipText = "Œ»İ‚ğ“Ç‚İã‚°B";
+            _Button.ToolTipText = "ç¾åœ¨æ™‚åˆ»ã‚’èª­ã¿ä¸Šã’ã€‚";
             _Button.Click      += Button_Click;
             Pub.ToolStrip.Items.Add(_Button);
         }
 
-        //ƒvƒ‰ƒOƒCƒ“I—¹ˆ—
+        //ãƒ—ãƒ©ã‚°ã‚¤ãƒ³çµ‚äº†æ™‚å‡¦ç†
         public void End() {
-            //İ’èƒtƒ@ƒCƒ‹•Û‘¶
+            //è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜
             _Settings.Save(_SettingFile);
 
-            //ƒ^ƒCƒ}ŠJ•ú
+            //ã‚¿ã‚¤ãƒé–‹æ”¾
             if (_Timer != null) {
                 _Timer.Dispose();
                 _Timer = null;
             }
 
-            //‰æ–Ê‚©‚çƒ{ƒ^ƒ“‚ÆƒZƒpƒŒ[ƒ^‚ğíœ
+            //ç”»é¢ã‹ã‚‰ãƒœã‚¿ãƒ³ã¨ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã‚’å‰Šé™¤
             if (_Separator != null) {
                 Pub.ToolStrip.Items.Remove(_Separator);
                 _Separator.Dispose();
@@ -84,52 +84,52 @@ namespace Plugin_Zihou {
         #endregion
 
 
-        #region ¡ƒƒ\ƒbƒhEƒCƒxƒ“ƒgˆ—
+        #region â– ãƒ¡ã‚½ãƒƒãƒ‰ãƒ»ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
-        //ƒ^ƒCƒ}ƒCƒxƒ“ƒg
+        //ã‚¿ã‚¤ãƒã‚¤ãƒ™ãƒ³ãƒˆ
         private void Timer_Event(object obj) {
             DateTime dt = DateTime.Now;
             if (dt >= _NextAlartTime) {
-                //•ñ‚ğ“o˜^
+                //æ™‚å ±ã‚’ç™»éŒ²
                 AddTimeTalk(dt, true);
 
-                //Ÿ‚Ì•ñ‚ğƒZƒbƒg
+                //æ¬¡ã®æ™‚å ±æ™‚åˆ»ã‚’ã‚»ãƒƒãƒˆ
                 SetNextAlart();
             }
         }
 
-        //ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çŒ»İ‚ğ“Ç‚İã‚°‚é
+        //ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ç¾åœ¨æ™‚åˆ»ã‚’èª­ã¿ä¸Šã’ã‚‹
         private void Button_Click(object sender, EventArgs e) {
             AddTimeTalk(DateTime.Now, false);
         }
 
-        //Ÿ‚Ì•ñ‚ğƒZƒbƒg‚·‚é
+        //æ¬¡ã®æ™‚å ±æ™‚åˆ»ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
         internal void SetNextAlart() {
             if (_Settings.TimeSignal) {
-                //Ÿ‚Ì‚ğƒZƒbƒg
+                //æ¬¡ã®æ™‚åˆ»ã‚’ã‚»ãƒƒãƒˆ
                 DateTime dt = DateTime.Now;
                 _NextAlartTime = new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, 0, 0).AddHours(1);
             } else {
-                //•ñ–³Œø
+                //æ™‚å ±ç„¡åŠ¹
                 _NextAlartTime = DateTime.MaxValue;
             }
         }
 
-        //‚ğ“Ç‚İã‚°‚é
+        //æ™‚åˆ»ã‚’èª­ã¿ä¸Šã’ã‚‹
         private void AddTimeTalk(DateTime dt, bool bJustTime) {
             StringBuilder sb = new StringBuilder();
             if (bJustTime) {
-                sb.Append("ƒ|ƒb@@ƒ|ƒb@@ƒ|ƒb@@ƒpƒAƒAƒAƒAƒ“@");
-                sb.Append("‚Ú‚¤‚æ‚İ‚¿‚á‚ñ/‚ª");
+                sb.Append("ãƒãƒƒã€€ã€€ãƒãƒƒã€€ã€€ãƒãƒƒã€€ã€€ãƒ‘ã‚¢ã‚¢ã‚¢ã‚¢ãƒ³ã€€");
+                sb.Append("ã¼ã†ã‚ˆã¿ã¡ã‚ƒã‚“/ãŒ");
                 sb.Append(dt.Hour);
-                sb.Append("‚ğA‚¨‚Â‚½‚¦‚µ‚Ü'‚·B");
+                sb.Append("æ™‚ã‚’ã€ãŠã¤ãŸãˆã—ã¾'ã™ã€‚");
             } else {
                 sb.Append(dt.Hour);
-                sb.Append("");
+                sb.Append("æ™‚");
                 sb.Append(dt.Minute);
-                sb.Append("•ª");
+                sb.Append("åˆ†");
                 sb.Append(dt.Second);
-                sb.Append("•b‚Å‚·B");
+                sb.Append("ç§’ã§ã™ã€‚");
             }
             Pub.AddTalkTask(sb.ToString(), -1, -1, VoiceType.Default);
         }
@@ -137,37 +137,37 @@ namespace Plugin_Zihou {
         #endregion
 
 
-        #region ¡ƒNƒ‰ƒXE\‘¢‘Ì
+        #region â– ã‚¯ãƒ©ã‚¹ãƒ»æ§‹é€ ä½“
 
-        // İ’èƒNƒ‰ƒXiİ’è‰æ–Ê•\¦Eƒtƒ@ƒCƒ‹•Û‘¶‚ğŠÈ—ª‰»Bpublic‚Èƒƒ“ƒo‚¾‚¯•Û‘¶‚³‚ê‚éBXmlSerializer‚Åˆ—‚Å‚«‚éƒNƒ‰ƒX‚Ì‚İg—p‰ÂBj
+        // è¨­å®šã‚¯ãƒ©ã‚¹ï¼ˆè¨­å®šç”»é¢è¡¨ç¤ºãƒ»ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜ã‚’ç°¡ç•¥åŒ–ã€‚publicãªãƒ¡ãƒ³ãƒã ã‘ä¿å­˜ã•ã‚Œã‚‹ã€‚XmlSerializerã§å‡¦ç†ã§ãã‚‹ã‚¯ãƒ©ã‚¹ã®ã¿ä½¿ç”¨å¯ã€‚ï¼‰
         public class Settings_Zihou : SettingsBase {
-            //•Û‘¶‚³‚ê‚éî•ñiİ’è‰æ–Ê‚©‚ç‚àQÆ‚³‚ê‚éj
+            //ä¿å­˜ã•ã‚Œã‚‹æƒ…å ±ï¼ˆè¨­å®šç”»é¢ã‹ã‚‰ã‚‚å‚ç…§ã•ã‚Œã‚‹ï¼‰
             public bool TimeSignal = true;
 
-            //ì¬Œ³ƒvƒ‰ƒOƒCƒ“
+            //ä½œæˆå…ƒãƒ—ãƒ©ã‚°ã‚¤ãƒ³
             internal Plugin_Zihou Plugin;
 
-            //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+            //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
             public Settings_Zihou() {
             }
 
-            //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+            //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
             public Settings_Zihou(Plugin_Zihou pZihou) {
                 Plugin = pZihou;
             }
 
-            //GUI‚È‚Ç‚©‚ç“–ƒIƒuƒWƒFƒNƒg‚Ì“Ç‚İ‚İ(İ’èƒZ[ƒuEİ’è‰æ–Ê•\¦‚ÉŒÄ‚Î‚ê‚é)
+            //GUIãªã©ã‹ã‚‰å½“ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®èª­ã¿è¾¼ã¿(è¨­å®šã‚»ãƒ¼ãƒ–æ™‚ãƒ»è¨­å®šç”»é¢è¡¨ç¤ºæ™‚ã«å‘¼ã°ã‚Œã‚‹)
             public override void ReadSettings() {
                 
             }
 
-            //“–ƒIƒuƒWƒFƒNƒg‚©‚çGUI‚È‚Ç‚Ö‚Ì”½‰f(İ’èƒ[ƒhEİ’èXV‚ÉŒÄ‚Î‚ê‚é)
+            //å½“ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰GUIãªã©ã¸ã®åæ˜ (è¨­å®šãƒ­ãƒ¼ãƒ‰æ™‚ãƒ»è¨­å®šæ›´æ–°æ™‚ã«å‘¼ã°ã‚Œã‚‹)
             public override void WriteSettings() {
                 Plugin.SetNextAlart();
             }
         }
 
-        // İ’è‰æ–Ê•\¦—pƒNƒ‰ƒXiİ’è‰æ–Ê•\¦Eƒtƒ@ƒCƒ‹•Û‘¶‚ğŠÈ—ª‰»Bpublic‚Èƒƒ“ƒo‚¾‚¯•Û‘¶‚³‚ê‚éBXmlSerializer‚Åˆ—‚Å‚«‚éƒNƒ‰ƒX‚Ì‚İg—p‰ÂBj
+        // è¨­å®šç”»é¢è¡¨ç¤ºç”¨ã‚¯ãƒ©ã‚¹ï¼ˆè¨­å®šç”»é¢è¡¨ç¤ºãƒ»ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜ã‚’ç°¡ç•¥åŒ–ã€‚publicãªãƒ¡ãƒ³ãƒã ã‘ä¿å­˜ã•ã‚Œã‚‹ã€‚XmlSerializerã§å‡¦ç†ã§ãã‚‹ã‚¯ãƒ©ã‚¹ã®ã¿ä½¿ç”¨å¯ã€‚ï¼‰
         public class SettingFormData_Zihou : ISettingFormData {
             Settings_Zihou _Setting;
 
@@ -180,28 +180,28 @@ namespace Plugin_Zihou {
                 PBase    = new SBase(_Setting);
             }
 
-            //İ’è‰æ–Ê‚Å•\¦‚³‚ê‚éƒNƒ‰ƒX(ISettingPropertyGrid)
+            //è¨­å®šç”»é¢ã§è¡¨ç¤ºã•ã‚Œã‚‹ã‚¯ãƒ©ã‚¹(ISettingPropertyGrid)
             public SBase PBase;
             public class SBase : ISettingPropertyGrid {
                 Settings_Zihou _Setting;
                 public SBase(Settings_Zihou setting) { _Setting = setting; }
-                public string GetName() { return "•ñİ’è"; }
+                public string GetName() { return "æ™‚å ±è¨­å®š"; }
 
-                [Category   ("Šî–{İ’è")]
-                [DisplayName("01)•ñ‚ğ—LŒø‚É‚·‚é")]
-                [Description("‚PŠÔ–ˆ‚É‚ğ•ñ‚¹‚é‚©‚Ç‚¤‚©B\n¦ƒ^ƒCƒ~ƒ“ƒO‚Í³Šm‚Å‚Í‚ ‚è‚Ü‚¹‚ñOOG")]
+                [Category   ("åŸºæœ¬è¨­å®š")]
+                [DisplayName("01)æ™‚å ±ã‚’æœ‰åŠ¹ã«ã™ã‚‹")]
+                [Description("ï¼‘æ™‚é–“æ¯ã«æ™‚åˆ»ã‚’å ±ã›ã‚‹ã‹ã©ã†ã‹ã€‚\nâ€»ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã¯æ­£ç¢ºã§ã¯ã‚ã‚Šã¾ã›ã‚“ï¼¾ï¼¾ï¼›")]
                 public bool TimeSignal { get { return _Setting.TimeSignal; } set { _Setting.TimeSignal = value; } }
 
-                /* ISettingPropertyGrid‚Å‚Íİ’è‰æ–Ê‚Å‚Ì•\¦€–Ú‚ğw’è‚Å‚«‚Ü‚·B
-                [Category   ("•ª—Ş")]
-                [DisplayName("•\¦–¼")]
-                [Description("à–¾•¶")]
-                [DefaultValue(0)]        //ƒfƒtƒHƒ‹ƒg’lF‹­’²•\¦‚³‚ê‚È‚¢‚¾‚¯
-                [Browsable(false)]       //PropertyGrid‚Å•\¦‚µ‚È‚¢
-                [ReadOnly(true)]         //PropertyGrid‚Å“Ç‚İ‚İê—p‚É‚·‚é
-                string  ƒtƒ@ƒCƒ‹‘I‘ğ     ¨[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor),       typeof(System.Drawing.Design.UITypeEditor))]
-                string  ƒtƒHƒ‹ƒ_‘I‘ğ     ¨[Editor(typeof(System.Windows.Forms.Design.FileNameEditor),         typeof(System.Drawing.Design.UITypeEditor))]
-                string  •¡”s•¶š—ñ“ü—Í ¨[Editor(typeof(System.ComponentModel.Design.MultilineStringEditor), typeof(System.Drawing.Design.UITypeEditor))]
+                /* ISettingPropertyGridã§ã¯è¨­å®šç”»é¢ã§ã®è¡¨ç¤ºé …ç›®ã‚’æŒ‡å®šã§ãã¾ã™ã€‚
+                [Category   ("åˆ†é¡")]
+                [DisplayName("è¡¨ç¤ºå")]
+                [Description("èª¬æ˜æ–‡")]
+                [DefaultValue(0)]        //ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ï¼šå¼·èª¿è¡¨ç¤ºã•ã‚Œãªã„ã ã‘
+                [Browsable(false)]       //PropertyGridã§è¡¨ç¤ºã—ãªã„
+                [ReadOnly(true)]         //PropertyGridã§èª­ã¿è¾¼ã¿å°‚ç”¨ã«ã™ã‚‹
+                string  ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠ     â†’[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor),       typeof(System.Drawing.Design.UITypeEditor))]
+                string  ãƒ•ã‚©ãƒ«ãƒ€é¸æŠ     â†’[Editor(typeof(System.Windows.Forms.Design.FileNameEditor),         typeof(System.Drawing.Design.UITypeEditor))]
+                string  è¤‡æ•°è¡Œæ–‡å­—åˆ—å…¥åŠ› â†’[Editor(typeof(System.ComponentModel.Design.MultilineStringEditor), typeof(System.Drawing.Design.UITypeEditor))]
                 */
             }
         }
