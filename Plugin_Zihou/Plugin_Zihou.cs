@@ -49,7 +49,7 @@ namespace Plugin_Zihou {
 
         public string Name { get { return "時報"; } }
 
-        public string Version { get { return "2019/05/02"; } }
+        public string Version { get { return "2023.02.05"; } }
 
         public string Caption { get { return "時刻を読み上げます。\n一時間毎の時報と、ボタンを押した際に現在時刻を読み上げます。"; } }
 
@@ -144,7 +144,7 @@ namespace Plugin_Zihou {
         private string ReadAloudText(string path) {
             string ret;
             try {
-                StreamReader sr = new StreamReader(path, Encoding.GetEncoding("Shift_JIS"));
+                StreamReader sr = new StreamReader(path, Encoding.GetEncoding("UTF-8"));
                 try {
                     ret = sr.ReadToEnd();
                 } catch (Exception) {
